@@ -6,6 +6,7 @@ import br.com.alura.LuandaLl.TabelaFibeAplication.service.ConsultaApi;
 import br.com.alura.LuandaLl.TabelaFibeAplication.service.ConverteDados;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Principal {
@@ -58,6 +59,30 @@ public class Principal {
         modelos.modelos().stream()
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
+
+        System.out.println("\nDigite um trecho do nome do modelo escolhido");
+        var trecho = leitura.nextLine();
+
+        List<Dados> modelosFiltrados = modelos.
+                modelos().stream()
+                .filter(m-> m.nome().toLowerCase().contains(trecho.toLowerCase()))
+                .collect(Collectors.toList());
+
+        System.out.println("\nModelos filtrados");
+        modelosFiltrados.forEach(System.out::println);
+
+        System.out.println("\nDigite por favor o código do modelo desejado para buscar os valores de avaliação ");
+        var modeloDesejado = leitura.nextLine();
+
+        endereco = endereco + "/" + modeloDesejado + "/anos";
+
+        json = consultaApi.obterDados(endereco);
+
+        List<Dados> listaAnos = conversor.obterLista(json, Dados.class);
+
+        listaAnos.forEach(System.out::println);
+
+
 
 
 
