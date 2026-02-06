@@ -2,6 +2,7 @@ package br.com.alura.LuandaLl.TabelaFibeAplication.principal;
 
 import br.com.alura.LuandaLl.TabelaFibeAplication.model.Dados;
 import br.com.alura.LuandaLl.TabelaFibeAplication.model.Modelos;
+import br.com.alura.LuandaLl.TabelaFibeAplication.model.Veiculos;
 import br.com.alura.LuandaLl.TabelaFibeAplication.service.ConsultaApi;
 import br.com.alura.LuandaLl.TabelaFibeAplication.service.ConverteDados;
 
@@ -80,7 +81,18 @@ public class Principal {
 
         List<Dados> listaAnos = conversor.obterLista(json, Dados.class);
 
-        listaAnos.forEach(System.out::println);
+        List<Veiculos> listaVeiculos = new ArrayList<>();
+
+        for (int i = 0; i< listaAnos.size(); i++){
+            var enderecoAnos   =  endereco + "/" + listaAnos.get(i).codigo();
+            json = consultaApi.obterDados(enderecoAnos);
+           Veiculos novoVeiculo = conversor.obterDados(json, Veiculos.class);
+           listaVeiculos.add(novoVeiculo);
+        }
+
+        System.out.println("Todos os veiculos: ");
+        listaVeiculos.forEach(System.out::println);
+
 
 
 
