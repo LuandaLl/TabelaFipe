@@ -13,16 +13,19 @@ public class ConsultaApi {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(endereco))
                 .build();
+        HttpResponse<String> response = null;
         try {
-            HttpResponse<String> response = client
+         response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            var json = response.body();
-            return json;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+       String json = response.body();
+        return json;
     }
 }

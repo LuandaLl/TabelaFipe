@@ -1,5 +1,7 @@
 package br.com.alura.LuandaLl.TabelaFibeAplication.model;
 
+import javax.swing.plaf.synth.SynthToolTipUI;
+
 public class DadosMarca {
     private int codigo;
     private String marca;
